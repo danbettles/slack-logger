@@ -1,0 +1,11 @@
+{
+    "ignoreWords": [
+        "Stringable",
+        "CURLOPT",
+        "phpstan",
+        "phpcs",
+        "Shortcode",
+        "Shortcodes",
+        "bangbang"
+    ]
+}
