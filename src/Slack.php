@@ -76,6 +76,8 @@ class Slack
             $json = json_encode($message);
         }
 
+        /** @var string $json */
+
         $allOptionsWereSet = curl_setopt_array($curl, [
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_CUSTOMREQUEST => 'POST',
@@ -99,7 +101,18 @@ class Slack
         $responseCode = curl_getinfo($curl, CURLINFO_RESPONSE_CODE);
 
         if (200 !== $responseCode) {
-            throw new RuntimeException('The message JSON was rejected by Slack');
+            throw new RuntimeException(<<<END
+                The message JSON was rejected by Slack.
+
+                **Response code**
+                {$responseCode}
+
+                **Transfer**
+                {$result}
+
+                **Request body**
+                {$json}
+                END);
         }
 
         return $result;
